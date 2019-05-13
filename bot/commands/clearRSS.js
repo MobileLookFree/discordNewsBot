@@ -14,7 +14,7 @@ module.exports = {
     try {
       await MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        var dbo = db.db('userSettings');
+        const dbo = db.db('userSettings');
         dbo
           .collection('users')
           .find({ userTag: `${msg.author.tag}` })
