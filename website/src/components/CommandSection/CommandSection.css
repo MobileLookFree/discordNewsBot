@@ -1,0 +1,13 @@
+.command-section {
+    margin: 0 auto;
+    padding: 0px 30px;
+    max-width: 768px;
+}
+
+.command-section :nth-child(9) .discription {
+    border-bottom: none;
+}
+
+#commands {
+    text-align: left;
+}

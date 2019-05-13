@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono');
+
+.command{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.command-name {
+    display: flex;
+    min-width: 140px;
+}
+
+.commandID {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #393E41;
+    font-size: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.prefix {
+    color: #7289da;
+}
+
+.discription {
+    display: block;
+    width: 100%;
+    text-align: left;
+    word-wrap: break-word;
+    border-bottom: solid 0.5px rgb(255, 255, 255, 0.5);
+}
+
+.message-sample {
+    display: inline-block;
+    word-break: break-word;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #7289da;
+    font-family: 'IBM Plex Mono', monospace;
+    min-width: 50px;
+}

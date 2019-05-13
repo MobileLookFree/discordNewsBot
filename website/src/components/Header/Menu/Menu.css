@@ -1,0 +1,35 @@
+.menu {
+    display: flex;
+    width: 100%;
+}
+
+.menu ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.menu li a{
+    display: block;
+    padding: 0px 30px;
+    color: white;
+    text-decoration: none;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.menu li a:hover{
+    color: #7289da;
+}
+
+@media screen and (max-width: 560px) {
+    div.menu {
+      display: none;
+    }
+}

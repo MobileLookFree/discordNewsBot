@@ -1,0 +1,12 @@
+
+.app {
+  color: white;
+  background-color:  rgb(33, 33, 37);
+  min-width: 360px;
+  max-width: 1920;
+}
+
+p {
+  font-size: 20px;
+  line-height: 1.5;
+}

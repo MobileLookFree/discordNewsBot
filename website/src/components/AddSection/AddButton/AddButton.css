@@ -1,0 +1,25 @@
+.add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 45px;
+    width: 240px;
+    border-radius: 3px;
+    margin: 5px 10px;
+
+    color: white;
+    background-color: #7289da;
+    text-decoration: none;
+    box-shadow: 0px 0px 5px rgb(41, 41, 41);
+
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.add-button:hover {
+    background-color: #596db4;
+    transform: scale(1.03);
+}

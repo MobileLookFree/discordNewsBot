@@ -1,0 +1,31 @@
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    padding: 30px;
+    background-color: #26262C;
+}
+
+.copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 48px;
+    padding: 10px 30px;
+}
+
+.copyright a {
+    text-decoration: none;
+    color: #7289da;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.copyright a:hover {
+    color: #596db4;
+}

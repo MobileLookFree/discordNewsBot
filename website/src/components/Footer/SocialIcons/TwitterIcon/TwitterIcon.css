@@ -1,0 +1,11 @@
+
+svg #twitter-icon {
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+svg:hover #twitter-icon {
+    fill: #1dcaff;
+}

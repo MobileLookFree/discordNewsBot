@@ -1,0 +1,33 @@
+.language-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 120px;
+    height: 50px;
+    padding-right: 0;
+    border: 0;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    color: rgb(255, 255, 255, 0.5);
+}
+
+.separator {
+    margin: 0px 10px;
+    width: 2px;
+    height: 20px;
+    background-color: rgb(255, 255, 255, 0.5);
+}
+
+.language-button svg #language-icon {
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.language-button svg:hover #language-icon {
+    fill: #7289da;
+}

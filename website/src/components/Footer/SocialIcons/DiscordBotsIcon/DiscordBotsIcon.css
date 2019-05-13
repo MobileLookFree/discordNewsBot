@@ -1,0 +1,10 @@
+svg #discord-bots-icon {
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+svg:hover #discord-bots-icon {
+    fill: #7289da;;
+}

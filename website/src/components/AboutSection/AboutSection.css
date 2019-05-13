@@ -1,0 +1,9 @@
+.about-section {
+    background-color: #26262C;
+}
+
+.about-content {
+    margin: 0 auto;
+    padding: 30px 30px;
+    max-width: 768px;
+}

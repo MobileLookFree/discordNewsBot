@@ -1,0 +1,5 @@
+#private data
+*.json
+
+#misc
+.DS_Store

@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    background-color: #212125;
+    height: 72px;
+    padding: 0px 30px;
+    margin: 0 auto;
+    max-width: 1400px;
+} 

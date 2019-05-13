@@ -1,0 +1,10 @@
+svg #github-icon {
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+svg:hover #github-icon {
+    fill: #6e5494;
+}

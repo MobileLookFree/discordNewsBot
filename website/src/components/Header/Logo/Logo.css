@@ -1,0 +1,14 @@
+.logo {
+    margin-top: 4px;
+}
+
+svg #discord-logo {
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+svg:hover #discord-logo {
+    fill: #7289da;
+}

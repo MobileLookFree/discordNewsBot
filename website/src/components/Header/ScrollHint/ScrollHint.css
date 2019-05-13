@@ -1,0 +1,40 @@
+div.sroll-down {
+    display: none;
+    background-color: #7289da;
+    height: 64px;
+    padding: 0px 30px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commands-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: white;
+  background-color: #5f76ca;
+
+
+  transition: 200ms;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: 200ms;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+.commands-button:hover {
+  transform: scale(1.03);
+}
+
+@media screen and (max-width: 560px) {
+    div.menu {
+      display: none;
+    }
+    div.sroll-down {
+      display: flex;
+    }
+}

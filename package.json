@@ -1,0 +1,16 @@
+{
+  "name": "newserbot",
+  "version": "0.2",
+  "description": "Simple news bot – my degree project in RTU (https://www.mirea.ru). Working with '!' prefix.",
+  "main": "/bot/bot.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MobileLookFree/discordNewsBot.git"
+  },
+  "author": "Hollo",
+  "license": "MIT",
+  "homepage": "https://github.com/MobileLookFree/discordNewsBot/blob/master/README.md",
+  "dependencies": {
+    "mongodb": "^3.1.13"
+  }
+}
