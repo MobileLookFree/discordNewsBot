@@ -3,7 +3,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const fs = require('fs');
 
-const botconfig = require('./bot/botconfig.json');
+//const botconfig = require('./bot/botconfig.json');
 const prefix = '!'
 // !add https://beardycast.com/feed https://news.yandex.ru/internet.rss
 
