@@ -1,6 +1,5 @@
 {
   "name": "newserbot",
-  "version": "0.2",
   "description": "Simple news bot – my degree project in RTU (https://www.mirea.ru). Working with '!' prefix.",
   "main": "/bot/bot.js",
   "repository": {
@@ -13,7 +12,11 @@
   "dependencies": {
     "discord.js": "^11.5.0",
     "fs": "0.0.1-security",
+    "mocha": "^6.1.4",
     "mongodb": "^3.1.13",
     "rss-parser": "^3.7.0"
+  },
+  "scripts": {
+    "test": "mocha ./bot/tests/test.js"
   }
 }

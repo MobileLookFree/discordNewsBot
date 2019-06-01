@@ -53,32 +53,32 @@ module.exports = {
         msg.channel.send(`${translation[userSettings.language].news.errorLinkNumber}${selectedLink}`);
       }
 
-      global.feed = await parser.parseURL(userSettings.rssLinks[selectedLink - 1]);
+      feed = await parser.parseURL(userSettings.rssLinks[selectedLink - 1]);
       msg.channel.send({
         embed: {
           color: 7506394,
-          title: global.feed.title,
+          title: feed.title,
           description: translation[userSettings.language].news.description,
           fields: [
             {
-              name: global.feed.items[0].title,
-              value: global.feed.items[0].link
+              name: feed.items[0].title,
+              value: feed.items[0].link
             },
             {
-              name: global.feed.items[1].title,
-              value: global.feed.items[1].link
+              name: feed.items[1].title,
+              value: feed.items[1].link
             },
             {
-              name: global.feed.items[2].title,
-              value: global.feed.items[2].link
+              name: feed.items[2].title,
+              value: feed.items[2].link
             },
             {
-              name: global.feed.items[3].title,
-              value: global.feed.items[3].link
+              name: feed.items[3].title,
+              value: feed.items[3].link
             },
             {
-              name: global.feed.items[4].title,
-              value: global.feed.items[4].link
+              name: feed.items[4].title,
+              value: feed.items[4].link
             }
           ],
           timestamp: new Date()

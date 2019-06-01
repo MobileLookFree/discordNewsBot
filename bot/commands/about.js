@@ -47,7 +47,6 @@ module.exports = {
           description: translation[userSettings.language].about.description
         }
       });
-
     } catch (err) {
       console.log(err);
       return;

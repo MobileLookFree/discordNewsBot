@@ -62,7 +62,6 @@ module.exports = {
               console.log(`RSS ${deletedURL} for ${msg.author.tag} deleted`);
               db.close();
             });
-          global.feed = undefined;
           msg.channel.send(`${translation[userSettings.language].clear.text} ${deletedURL}`);
         });
       }

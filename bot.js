@@ -3,7 +3,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const fs = require('fs');
 
-//const botconfig = require('./bot/botconfig.json');
+const botconfig = require('./bot/botconfig.json');
 const prefix = '!'
 // !add https://beardycast.com/feed https://news.yandex.ru/internet.rss
 
@@ -14,7 +14,7 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!\n`);
+  console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', (msg) => {
@@ -39,5 +39,5 @@ client.on('message', (msg) => {
   }
 });
 
-//client.login(botconfig.token);
-client.login(process.env.BOT_TOKEN);
+client.login(botconfig.token);
+//client.login(process.env.BOT_TOKEN);
