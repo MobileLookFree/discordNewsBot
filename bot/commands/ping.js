@@ -1,27 +1,19 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/';
-const translation = require('../translation.js');
 
-const { sleep } = require('./sleepFunction.js');
+const translation = require('../translation.js');
 
 module.exports = {
   name: 'ping',
   async execute(msg) {
     try {
-      await MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        const dbo = db.db('userSettings');
-        dbo
-          .collection('users')
-          .find({ userTag: `${msg.author.tag}` })
-          .toArray(function(err, result) {
-            if (err) throw err;
-            userSettings = result[0];
-            db.close();
-          });
-      });
-
-      await sleep(200);
+      let client = await MongoClient.connect(url, { useNewUrlParser: true });
+      let result = await client
+        .db('userSettings')
+        .collection('users')
+        .find({ userTag: `${msg.author.tag}` })
+        .toArray();
+      let userSettings = result[0];
 
       if (userSettings === undefined) {
         userSettings = {
@@ -29,15 +21,14 @@ module.exports = {
           rssLinks: [],
           language: 0
         };
-
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          let dbo = db.db('userSettings');
-          dbo.collection('users').insertOne(userSettings, function(err, res) {
+        
+        client
+          .db('userSettings')
+          .collection('users')
+          .insertOne(userSettings, function(err, res) {
             if (err) throw err;
-            db.close();
+            client.close();
           });
-        });
       }
 
       msg.channel.send(translation[userSettings.language].ping.text);

@@ -2,26 +2,18 @@ let MongoClient = require('mongodb').MongoClient;
 let url = 'mongodb://localhost:27017/';
 
 const translation = require('../translation.js');
-const { sleep } = require('./sleepFunction.js');
 
 module.exports = {
   name: 'about',
   async execute(msg) {
     try {
-      await MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        const dbo = db.db('userSettings');
-        dbo
-          .collection('users')
-          .find({ userTag: `${msg.author.tag}` })
-          .toArray(function(err, result) {
-            if (err) throw err;
-            userSettings = result[0];
-            db.close();
-          });
-      });
-
-      await sleep(200);
+      let client = await MongoClient.connect(url, { useNewUrlParser: true });
+      let result = await client
+        .db('userSettings')
+        .collection('users')
+        .find({ userTag: `${msg.author.tag}` })
+        .toArray();
+      let userSettings = result[0];
 
       if (userSettings === undefined) {
         userSettings = {
@@ -30,14 +22,13 @@ module.exports = {
           language: 0
         };
 
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          let dbo = db.db('userSettings');
-          dbo.collection('users').insertOne(userSettings, function(err, res) {
+        client
+          .db('userSettings')
+          .collection('users')
+          .insertOne(userSettings, function(err, res) {
             if (err) throw err;
-            db.close();
+            client.close();
           });
-        });
       }
 
       msg.channel.send({
@@ -48,7 +39,7 @@ module.exports = {
         }
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return;
     }
   }

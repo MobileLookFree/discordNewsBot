@@ -2,29 +2,21 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/';
 
 const translation = require('../translation.js');
-const { sleep } = require('./sleepFunction.js');
 
 module.exports = {
   name: 'clearRSS',
   async execute(msg) {
-
     let clearString = msg.content;
     let deletedItem = Number(clearString.split(' ')[1]);
     
     try {
-      await MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        const dbo = db.db('userSettings');
-        dbo
-          .collection('users')
-          .find({ userTag: `${msg.author.tag}` })
-          .toArray(function(err, result) {
-            if (err) throw err;
-            userSettings = result[0];
-          });
-      });
-
-      await sleep(200);
+      let client = await MongoClient.connect(url, { useNewUrlParser: true });
+      let result = await client
+        .db('userSettings')
+        .collection('users')
+        .find({ userTag: `${msg.author.tag}` })
+        .toArray();
+      let userSettings = result[0];
 
       if (userSettings === undefined) {
         userSettings = {
@@ -32,15 +24,14 @@ module.exports = {
           rssLinks: [],
           language: 0
         };
-
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          let dbo = db.db('userSettings');
-          dbo.collection('users').insertOne(userSettings, function(err, res) {
+        
+        client
+          .db('userSettings')
+          .collection('users')
+          .insertOne(userSettings, function(err, res) {
             if (err) throw err;
-            db.close();
+            client.close();
           });
-        });
       }
 
       let deletedURL = userSettings.rssLinks[deletedItem-1];
@@ -52,18 +43,16 @@ module.exports = {
       } else {
         userSettings.rssLinks.splice(deletedItem-1, 1);
 
-        MongoClient.connect(url, function(err, db) {
+        client
+        .db('userSettings')
+        .collection('users')
+        .replaceOne({ userTag: `${msg.author.tag}` }, userSettings, function(err, res) {
           if (err) throw err;
-          var dbo = db.db('userSettings');
-          dbo
-            .collection('users')
-            dbo.collection('users').replaceOne({ userTag: `${msg.author.tag}` }, userSettings, function(err, res) {
-              if (err) throw err;
-              console.log(`RSS ${deletedURL} for ${msg.author.tag} deleted`);
-              db.close();
-            });
-          msg.channel.send(`${translation[userSettings.language].clear.text} ${deletedURL}`);
+          console.log(`RSS ${deletedURL} for ${msg.author.tag} deleted`);
+          client.close();
         });
+        
+        msg.channel.send(`${translation[userSettings.language].clear.text} ${deletedURL}`);
       }
     } catch (err) {
       console.log(err);

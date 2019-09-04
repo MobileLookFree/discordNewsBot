@@ -4,7 +4,7 @@ client.commands = new Discord.Collection();
 const fs = require('fs');
 
 const botconfig = require('./bot/botconfig.json');
-const prefix = '!'
+const prefix = '!';
 // !add https://beardycast.com/feed https://news.yandex.ru/internet.rss
 
 const commandFiles = fs.readdirSync('./bot/commands/').filter((file) => file.endsWith('.js'));
