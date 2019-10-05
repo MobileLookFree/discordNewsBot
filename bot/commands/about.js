@@ -1,34 +1,19 @@
-let MongoClient = require('mongodb').MongoClient;
-let url = 'mongodb://localhost:27017/';
-
+const mongo = require('../databaseScripts/mongoCommands.js');
 const translation = require('../translation.js');
 
 module.exports = {
   name: 'about',
   async execute(msg) {
     try {
-      let client = await MongoClient.connect(url, { useNewUrlParser: true });
-      let result = await client
-        .db('userSettings')
-        .collection('users')
-        .find({ userTag: `${msg.author.tag}` })
-        .toArray();
-      let userSettings = result[0];
+      let userSettings = await mongo.getData(msg);
 
       if (userSettings === undefined) {
         userSettings = {
           userTag: msg.author.tag,
           rssLinks: [],
-          language: 0
+          language: 'en'
         };
-
-        client
-          .db('userSettings')
-          .collection('users')
-          .insertOne(userSettings, function(err, res) {
-            if (err) throw err;
-            client.close();
-          });
+        await mongo.insertData(userSettings);
       }
 
       msg.channel.send({

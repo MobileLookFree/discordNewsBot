@@ -2,7 +2,6 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/';
 
 const translation = require('../translation.js');
-const { sleep } = require('./sleepFunction.js');
 
 module.exports = {
   name: 'settings',
@@ -30,9 +29,9 @@ module.exports = {
         }
 
         let languageName;
-        if (userSettings.language === 0) {
+        if (userSettings.language === 'en') {
           languageName = 'English'
-        } else if (userSettings.language === 1) {
+        } else if (userSettings.language === 'ru') {
           languageName = 'Русский'
         }
         

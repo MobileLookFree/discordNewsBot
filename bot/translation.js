@@ -1,5 +1,5 @@
-module.exports = [
-  {
+module.exports = {
+  'en': {
     about: {
       title: 'About me:',
       description:
@@ -53,7 +53,7 @@ module.exports = [
       errorMessage: 'You haven`t added any news sources yet'
     }
   },
-  {
+  'ru': {
     about: {
       title: 'Обо мне:',
       description:
@@ -107,4 +107,4 @@ module.exports = [
       errorMessage: 'Пока Вы не добавили ни одного источника новостей'
     }
   }
-];
+};

@@ -2,8 +2,6 @@ let MongoClient = require('mongodb').MongoClient;
 let url = 'mongodb://localhost:27017/';
 const translation = require('../translation.js');
 
-const { sleep } = require('./sleepFunction.js');
-
 module.exports = {
   name: 'how',
   async execute(msg) {
@@ -20,7 +18,7 @@ module.exports = {
         userSettings = {
           userTag: msg.author.tag,
           rssLinks: [],
-          language: 0
+          language: 'en'
         };
         
         client

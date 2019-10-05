@@ -1,56 +1,33 @@
-let MongoClient = require('mongodb').MongoClient;
-let url = 'mongodb://localhost:27017/';
+const mongo = require('../databaseScripts/mongoCommands.js');
 
 module.exports = {
   name: 'language',
   async execute(msg) {
     let languageString = msg.content;
-    let languageName = languageString.split(' ')[1];
-    let languageCode;
-
-    if (languageName === 'en') {
-      languageCode = 0;
-    } else if (languageName === 'ru') {
-      languageCode = 1;
-    }
+    let languageCode = languageString.split(' ')[1];
 
     try {
-      let client = await MongoClient.connect(url, { useNewUrlParser: true });
-      let result = await client
-        .db('userSettings')
-        .collection('users')
-        .find({ userTag: `${msg.author.tag}` })
-        .toArray();
-      let userSettings = result[0];
+      let userSettings = await mongo.getData(msg);
 
       if (userSettings !== undefined) {
         userSettings.language = languageCode;
-
-        client
-          .db('userSettings')
-          .collection('users')
-          .replaceOne({ userTag: `${msg.author.tag}` }, userSettings, function(err, res) {
-            if (err) throw err;
-            console.log(`Language '${languageName}' selected for ${msg.author.tag}`);
-            client.close();
-          });
+        await mongo.replaceData(
+          msg,
+          userSettings,
+          (siteURL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'),
+          (operation = undefined)
+        );
+        console.log(`Language '${languageCode}' selected for ${msg.author.tag}`);
       } else {
         userSettings = {
           userTag: msg.author.tag,
           rssLinks: [],
           language: languageCode
         };
-
-        client
-          .db('userSettings')
-          .collection('users')
-          .insertOne(userSettings, function(err, res) {
-            if (err) throw err;
-            client.close();
-          });
+        await mongo.insertData(userSettings);
       }
 
-      msg.channel.send(`Language '${languageName}' selected`);
+      msg.channel.send(`Language '${languageCode}' selected`);
     } catch (err) {
       console.log(err);
       return;

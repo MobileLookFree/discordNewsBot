@@ -1,6 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/';
-
+const mongo = require('../databaseScripts/mongoCommands.js');
 const translation = require('../translation.js');
 
 module.exports = {
@@ -8,30 +6,18 @@ module.exports = {
   async execute(msg) {
     let clearString = msg.content;
     let deletedItem = Number(clearString.split(' ')[1]);
+    const operation = 'deleted';
     
     try {
-      let client = await MongoClient.connect(url, { useNewUrlParser: true });
-      let result = await client
-        .db('userSettings')
-        .collection('users')
-        .find({ userTag: `${msg.author.tag}` })
-        .toArray();
-      let userSettings = result[0];
+      let userSettings = await mongo.getData(msg);
 
       if (userSettings === undefined) {
         userSettings = {
           userTag: msg.author.tag,
           rssLinks: [],
-          language: 0
+          language: 'en'
         };
-        
-        client
-          .db('userSettings')
-          .collection('users')
-          .insertOne(userSettings, function(err, res) {
-            if (err) throw err;
-            client.close();
-          });
+        await mongo.insertData(userSettings);
       }
 
       let deletedURL = userSettings.rssLinks[deletedItem-1];
@@ -43,14 +29,7 @@ module.exports = {
       } else {
         userSettings.rssLinks.splice(deletedItem-1, 1);
 
-        client
-        .db('userSettings')
-        .collection('users')
-        .replaceOne({ userTag: `${msg.author.tag}` }, userSettings, function(err, res) {
-          if (err) throw err;
-          console.log(`RSS ${deletedURL} for ${msg.author.tag} deleted`);
-          client.close();
-        });
+        await mongo.replaceData(msg, userSettings, deletedURL, operation);
         
         msg.channel.send(`${translation[userSettings.language].clear.text} ${deletedURL}`);
       }

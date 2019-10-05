@@ -1,6 +1,4 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/';
-
+const mongo = require('../databaseScripts/mongoCommands.js');
 const translation = require('../translation.js');
 
 module.exports = {
@@ -8,42 +6,21 @@ module.exports = {
   async execute(msg) {
     let addString = msg.content;
     let siteURL = addString.split(' ')[1];
+    const operation = 'added';
 
     try {
-      let client = await MongoClient.connect(url, { useNewUrlParser: true });
-      let result = await client
-        .db('userSettings')
-        .collection('users')
-        .find({ userTag: `${msg.author.tag}` })
-        .toArray();
-      let userSettings = result[0];
+      let userSettings = await mongo.getData(msg);
 
       if (userSettings !== undefined) {
         userSettings.rssLinks.push(siteURL);
-
-        client
-        .db('userSettings')
-        .collection('users')
-        .replaceOne({ userTag: `${msg.author.tag}` }, userSettings, function(err, res) {
-          if (err) throw err;
-          console.log(`RSS ${siteURL} for ${msg.author.tag} added`);
-          client.close();
-        });
-
+        await mongo.replaceData(msg, userSettings, siteURL, operation);
       } else {
         userSettings = {
           userTag: msg.author.tag,
           rssLinks: [siteURL],
-          language: 0
+          language: 'en'
         };
-
-        client
-          .db('userSettings')
-          .collection('users')
-          .insertOne(userSettings, function(err, res) {
-            if (err) throw err;
-            client.close();
-          });
+        await mongo.insertData(userSettings);
       }
 
       msg.channel.send(`${translation[userSettings.language].add.text} ${siteURL}`);
