@@ -10,48 +10,44 @@ import Footer from './components/Footer/Footer';
 import translations from './translations';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+    state = {
       language: 0,
       languageSwitcherOpened: false
     };
 
-    this.setRussian = this.setRussian.bind(this);
-    this.setEnglish = this.setEnglish.bind(this);
-    this.openLanguageSwitcher = this.openLanguageSwitcher.bind(this);
-    this.closeLanguageSwitcherOffClick = this.closeLanguageSwitcherOffClick.bind(this);
-  }
-
   openLanguageSwitcher = () => {
-    this.setState((state) => ({ languageSwitcherOpened: !state.languageSwitcherOpened }));
+    this.setState(prevState => ({ 
+      ...prevState, 
+      languageSwitcherOpened: !prevState.anguageSwitcherOpened 
+    }));
   };
 
   closeLanguageSwitcherOffClick = () => {
-    if (this.state.languageSwitcherOpened === true) {
-      this.setState((state) => ({
-        languageSwitcherOpened: (state.languageSwitcherOpened = false)
+    const { languageSwitcherOpened } = this.state;
+    if (languageSwitcherOpened) {
+      this.setState(prevState => ({
+        ...prevState,
+        languageSwitcherOpened: false
       }));
     }
   };
 
   setEnglish = () => {
-    this.setState((state) => ({ language: (state.language = 0) }));
+    this.setState(prevState => ({ ...prevState, language: 0 }));
     localStorage.setItem('language', 0);
     this.openLanguageSwitcher();
   };
 
   setRussian = () => {
-    this.setState((state) => ({ language: (state.language = 1) }));
+    this.setState(prevState => ({ ...prevState, language: 1 }));
     localStorage.setItem('language', 1);
     this.openLanguageSwitcher();
   };
 
   setStateFromLocalStorage() {
     if (localStorage.hasOwnProperty('language')) {
-      let value = Number(localStorage.getItem('language'));
-      this.setState((state) => ({ language: (state.language = value) }));
+      const value = Number(localStorage.getItem('language'));
+      this.setState(prevState => ({ ...prevState, language: value }));
     }
   }
 
@@ -60,20 +56,21 @@ class App extends Component {
   }
 
   render() {
+    const { language, languageSwitcherOpened } = this.state;
     return (
       <div className='app' onClick={this.closeLanguageSwitcherOffClick}>
         <Header
-          header={translations[this.state.language].header}
-          languageSwitcherOpened={this.state.languageSwitcherOpened}
+          header={translations[language].header}
+          languageSwitcherOpened={languageSwitcherOpened}
           setEnglish={this.setEnglish}
           setRussian={this.setRussian}
           openLanguageSwitcher={this.openLanguageSwitcher}
         />
-        <ScrollHint text={translations[this.state.language].header.menu} />
-        <AddSection text={translations[this.state.language].addSection} />
-        <CommandSection text={translations[this.state.language].commandSection} />
-        <AboutSection text={translations[this.state.language].aboutSection} />
-        <Footer text={translations[this.state.language].footer} />
+        <ScrollHint text={translations[language].header.menu} />
+        <AddSection text={translations[language].addSection} />
+        <CommandSection text={translations[language].commandSection} />
+        <AboutSection text={translations[language].aboutSection} />
+        <Footer text={translations[language].footer} />
       </div>
     );
   }
